@@ -7,7 +7,13 @@
 	<style type="text/css">
 		#ocean {
 			background-image: url("ocean.jpg");
+			//background-color: blue;
 			width:900px;
+			height: 700px;
+		}
+		#storm {
+			background-image: url("storm.jpg");
+			width:960px;
 			height: 700px;
 		}
 		.player{
@@ -24,7 +30,7 @@
 		}
 	</style>
 
-	<div id = "ocean">
+	<div id = "storm">
 		<div id = "player"></div>
 		<div id = "enemies"></div>
 	</div>
@@ -66,13 +72,13 @@
 		if(e.keyCode == 37 && player.left > 0){ //LEFT
 			player.left = player.left - 10;
 		}
-		if(e.keyCode == 39 && player.left < 840){ //RIGHT
+		if(e.keyCode == 39 && player.left < 900){ //RIGHT
 			player.left = player.left + 10;
 		}
-		if(e.keyCode == 38 && player.top > 500){ //UP
+		if(e.keyCode == 38 && player.top > 520){ //UP
 			player.top = player.top - 10;
 		}
-		if(e.keyCode == 40 && player.top <630){ //Down
+		if(e.keyCode == 40 && player.top <625){ //Down
 			player.top = player.top + 10;
 		}
 		drawPlayer();
