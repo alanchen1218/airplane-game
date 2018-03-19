@@ -7,7 +7,7 @@
 	<style type="text/css">
 		#ocean {
 			background-image: url("ocean.jpg");
-			//background-color: blue;
+			background-color: blue;
 			width:900px;
 			height: 700px;
 		}
@@ -16,7 +16,10 @@
 			width:960px;
 			height: 700px;
 		}
+
 		.player{
+			/*this is HTML/CSS comment */
+			/*need to use .png to display image on background*/
 			position: absolute;
 			background-image: url("player.png");
 			width: 70px;
@@ -28,11 +31,18 @@
 			width: 70px;
 			height: 75px;
 		}
+		.missile{
+			position: absolute; /*so we can use left and top as position*/
+			background-color: red;
+			width: 2px;
+			height: 10px; 
+		}
 	</style>
 
 	<div id = "storm">
 		<div id = "player"></div>
 		<div id = "enemies"></div>
+		<div id = "missiles"></div>
 	</div>
 
 
@@ -51,6 +61,7 @@
 		{left: 450, top: 360},
 		{left: 250, top: 400}
 	]
+	var missiles = []
 
 	function drawPlayer(){
 		content = "<div class = 'player' style='left:"+player.left+"px; top: "+player.top+"px'></div>";
@@ -65,7 +76,27 @@
 		}
 		document.getElementById("enemies").innerHTML = content;
 	}
-	drawEnemies();
+
+	function drawMissiles(){
+		content = "";//start off with empty content, append to it, like enemies
+		for(var idx=0; idx<missiles.length; idx++){
+			content += "<div class='missile' style='left:"+missiles[idx].left+"px; top:"+missiles[idx].top+"px'></div>"
+		}
+		//missiles is going to be object we're looking at
+		document.getElementById("missiles").innerHTML = content;	
+	}
+
+	function moveEnemies(){ //want the mvoing speed to be variable,
+		for(var idx=0; idx<enemies.length; idx++){
+			enemies[idx].top = enemies[idx].top + 5; //everytime function is ran, moves down by 5
+		}
+	}
+
+	function moveMissiles(){
+		for(var idx=0; idx<missiles.length; idx++){
+			missiles[idx].top = missiles[idx].top - 10;
+		}
+	}
 
 	document.onkeydown = function(e){
 		console.log(e);
@@ -81,12 +112,29 @@
 		if(e.keyCode == 40 && player.top <625){ //Down
 			player.top = player.top + 10;
 		}
-		drawPlayer();
+		if(e.keyCode == 32){//fire
+			//add missile into array of missiles 
+			//position of missiles relative of where player currently is
+			missiles.push({left:(player.left+34), top:(player.top-8)})
+			drawMissiles();
+		}
+		drawPlayer()
+		//console.log(missiles) //test
 	}
 
+	function gameLoop(){ 
+		//will make the enemies move as we can move(up/down), everytime the gameLoop runs, we want to upfate the enemies variable
+		//don't need to call the functions up there after each function because already calling here
+		console.log("game loop is running!")
+		drawPlayer();
 
-
-	
+		moveEnemies();
+		drawEnemies();
+		moveMissiles();
+		drawMissiles();
+		setTimeout(gameLoop, 1000) //game loop runs every 1000ms(1 second) 
+	}
+	gameLoop()
 
 	</script>
 
