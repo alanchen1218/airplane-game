@@ -33,7 +33,7 @@
 		}
 		.missile{
 			position: absolute; /*so we can use left and top as position*/
-			background-color: red;
+			background-color: yellow;
 			width: 2px;
 			height: 10px; 
 		}
@@ -88,16 +88,16 @@
 
 	function moveEnemies(){ //want the mvoing speed to be variable,
 		for(var idx=0; idx<enemies.length; idx++){
-			enemies[idx].top = enemies[idx].top + 5; //everytime function is ran, moves down by 5
+			enemies[idx].top = enemies[idx].top + 1; //everytime function is ran, moves down by 1 make the enemies move fast by changing the 3
 		}
 	}
 
 	function moveMissiles(){
 		for(var idx=0; idx<missiles.length; idx++){
-			missiles[idx].top = missiles[idx].top - 10;
+			missiles[idx].top = missiles[idx].top - 4;//make the missiles faster
 		}
 	}
-
+	
 	document.onkeydown = function(e){
 		console.log(e);
 		if(e.keyCode == 37 && player.left > 0){ //LEFT
@@ -130,9 +130,11 @@
 
 		moveEnemies();
 		drawEnemies();
+
 		moveMissiles();
 		drawMissiles();
-		setTimeout(gameLoop, 1000) //game loop runs every 1000ms(1 second) 
+
+		setTimeout(gameLoop, 20) //game loop runs every 1000ms(1 second) 
 	}
 	gameLoop()
 
